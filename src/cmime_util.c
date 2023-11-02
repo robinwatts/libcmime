@@ -26,6 +26,7 @@
 #include "cmime_string.h"
 #include "cmime_config.h"
 #include "cmime_util.h"
+#include "cmime_windows.h"
 
 CMimeInfo_T *_split_combined_info(char *combined) {
     CMimeInfo_T *mi = NULL;

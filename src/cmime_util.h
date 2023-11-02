@@ -40,7 +40,7 @@ extern "C" {
 #include <assert.h>
 #include <errno.h>
 #include <time.h>
-#include <unistd.h>
+#include "cmime_windows.h"
 
 /*!
  * @struct CMimeInfo_T cmime_util.h

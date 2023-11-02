@@ -25,6 +25,7 @@
 
 #include "cmime_address.h"
 #include "cmime_string.h"
+#include "cmime_windows.h"
 
 /* Creates a new CMIMEAddress_T object */
 CMimeAddress_T *cmime_address_new(void) {

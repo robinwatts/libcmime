@@ -38,10 +38,10 @@ extern "C" {
 #include <string.h>
 #include <sys/stat.h>
 #include <assert.h>
-#include <libgen.h>
 #include <ctype.h>
 #include <errno.h>
 
+#include "cmime_windows.h"
 #include "cmime_list.h"
 
 /*!

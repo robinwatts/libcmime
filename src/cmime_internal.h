@@ -32,6 +32,7 @@ extern "C" {
 #include <string.h>
 #include <assert.h>
 
+#include "cmime_windows.h"
 #include "cmime_list.h"
 #include "cmime_message.h"
 #include "cmime_header.h"

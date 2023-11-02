@@ -39,6 +39,8 @@ extern "C" {
 #include <ctype.h>
 #include <assert.h>
 
+#include "cmime_windows.h"
+
 /*!
  * @struct CMimeStringList_T cmime_string.h
  * @brief A simple list with strings

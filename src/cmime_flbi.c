@@ -28,6 +28,7 @@
 #include <string.h>
 #include <assert.h>
 
+#include "cmime_windows.h"
 #include "cmime_part.h"
 #include "cmime_internal.h"
 #include "cmime_string.h"

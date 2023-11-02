@@ -48,14 +48,12 @@ extern "C" {
 #include <assert.h>
 #include <ctype.h>
 #include <time.h>
-#include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include <sys/param.h>
 #include <errno.h>
 
+#include "cmime_windows.h"
 #include "cmime_address.h"
 #include "cmime_list.h"
 #include "cmime_header.h"
