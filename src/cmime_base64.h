@@ -89,6 +89,15 @@ char *cmime_base64_encode_string(const char *source);
  */
 char *cmime_base64_decode_string(const char *source);
 
+/*!
+ * @fn char *cmime_base64_decode_buffer(const char *source, size_t *z)
+ * @brief Decode base64 string
+ * @param source base64 string to decode
+ * @param place to put length of decoded block
+ * @returns newly allocated chart pointer with decoded string
+ */
+char *cmime_base64_decode_buffer(const char *source, size_t *z);
+
 #ifdef __cplusplus
 }
 #endif

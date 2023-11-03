@@ -358,6 +358,7 @@ int cmime_part_to_file(CMimePart_T *part, char *filename) {
     FILE *fp = NULL;
     char *encoding = NULL;
     char *decoded_str = NULL;
+    size_t z;
 
     // todo: extend for x-uuencode
     const char base64[] = "base64";
@@ -371,16 +372,19 @@ int cmime_part_to_file(CMimePart_T *part, char *filename) {
 
     if(encoding == NULL) {
         asprintf(&decoded_str,"%s",part->content);
+        z = strlen(decoded_str);
     } else if (my_strmatch(encoding,qp)==0) {
         decoded_str = cmime_qp_decode_text(part->content);
+        z = strlen(decoded_str);
     } else if (my_strmatch(encoding,base64)==0) {
-        decoded_str = cmime_base64_decode_string(part->content);  
+        decoded_str = cmime_base64_decode_buffer(part->content, &z);
     } else {
         asprintf(&decoded_str,"%s",part->content);
+        z = strlen(decoded_str);
     }
     fp = fopen(filename, "wb");
     if(fp != NULL) {
-        fwrite(decoded_str,strlen(decoded_str),1,fp);
+        fwrite(decoded_str,1,z,fp);
         if (fclose(fp)!=0)
             perror("libcmime: error closing file");   
     } else {

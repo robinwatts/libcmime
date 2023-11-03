@@ -153,11 +153,13 @@ char *cmime_base64_encode_string(const char *source) {
     return(target);
 }
 
-char *cmime_base64_decode_string(const char *source) {
+char *cmime_base64_decode_buffer(const char *source, size_t *z) {
     unsigned char in[4], out[3], v;
     int i,j;
     char *target = NULL;
     int pos = 0;
+    const char *s = source;
+    int eod = 0;
     
     int source_len = strlen(source);
     int target_len = source_len - (0.35 * source_len) + 1;
@@ -165,23 +167,61 @@ char *cmime_base64_decode_string(const char *source) {
     target = (char *)calloc(target_len,sizeof(char) + 1);
 
     for(j=0; j<source_len; j+=4) {
-        v = 0;
         for(i=0; i<4; i++) {
-            v = (unsigned char)source[j + i];
-            v = (unsigned char) ((v < 43 || v > 122) ? 0 : cd64[ v - 43 ]);
-            v = (unsigned char) ((v == '$') ? 0 : v - 61);
-            
-            if (v)
-                in[i] = (unsigned char)(v - 1);
-            else 
-                in[i] = 0;
+            v = (unsigned char)*s++;
+            /* If we hit '=' then we're into padding at the end. */
+            if (v == '=')
+            {
+                eod = i+1;
+                do
+                {
+                    in[i++] = 0;
+                } while (i < 4);
+                break;
+            }
+            /* If the char is out of range, skip */
+            if (v < 43 || v > 122)
+            {
+                i--; continue;
+            }
+            v = (unsigned char) (cd64[ v - 43 ]);
+            /* If we get an 'in range but illegal char' skip it. */
+            if (v == '$')
+            {
+                i--; continue;
+            }
+            in[i] = v - 62;
         }
     
         cmime_base64_decode_block(in, out);
         for(i=0; i<3; i++) {
             target[pos++] = out[i]; 
         }
+        if (eod)
+            break;
     }
 
+    if (eod == 4)
+    {
+        /* XXX= decodes to 3 chars not 4. */
+        pos -= 1;
+    }
+    else if (eod == 3)
+    {
+        /* XX== decodes to 2 chars not 4. */
+        pos -= 2;
+    }
+    else if (eod != 0)
+    {
+        /* Unexpected padding! */
+    }
+
+    if (z)
+        *z = pos;
+
     return(target);
+}
+
+char *cmime_base64_decode_string(const char *source) {
+    return cmime_base64_decode_buffer(source, NULL);
 }
