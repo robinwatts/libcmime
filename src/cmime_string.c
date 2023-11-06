@@ -67,9 +67,9 @@ char *cmime_string_list_get(CMimeStringList_T *sl,int pos) {
 }
 
 char *cmime_string_strip(char *s) {
+    char * e;
     assert(s);
-
-    char * e = s + strlen(s) - 1;
+    e = s + strlen(s) - 1;
     while(*s && isspace(*s)) s++;
     while(e > s && isspace(*e)) *e-- = '\0';
 

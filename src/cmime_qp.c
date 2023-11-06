@@ -174,7 +174,7 @@ char *cmime_qp_encode(char *line_in, char *lt) {
         char charout[4];
         int charout_size = 0;
 
-        if (line_e != '\0') {
+        if (*line_e != '\0') {
             if (line_s == NULL) {
                 line_s = line_in;
             } else {

@@ -466,7 +466,8 @@ void cmime_message_set_sender(CMimeMessage_T *message, const char *sender) {
     assert(message);
     // fallback if sender is empty
     if (sender == NULL) {
-        asprintf(&sender, "");
+      // Nasty casting away of const here.
+      asprintf((char **)&sender, "");
     } 
 
     ca = cmime_address_parse_string(sender);
@@ -1167,12 +1168,12 @@ int cmime_message_append_part(CMimeMessage_T *message, CMimePart_T *part) {
 
 void cmime_message_add_attachment(CMimeMessage_T *message, char *attachment) {
 
-    assert(message);
-    assert(attachment);
-
     CMimePart_T *part = cmime_part_new();
     CMimeListElem_T *elem = NULL;
     CMimePart_T *prev = NULL;
+
+    assert(message);
+    assert(attachment);
 
     /* check if there is a previous part */
     if (message->parts->size >= 1) {
