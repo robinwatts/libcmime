@@ -23,6 +23,7 @@
 
 #define _GNU_SOURCE
  
+#include "cmime_windows.h"
 #include "cmime_list.h"
 
 /* initializes a new empty doubly linked list */

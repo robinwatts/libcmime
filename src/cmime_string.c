@@ -23,6 +23,7 @@
 
 #define _GNU_SOURCE
 
+#include "cmime_windows.h"
 #include "cmime_string.h"
 #include "cmime_util.h"
 #include "cmime_base64.h"

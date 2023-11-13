@@ -22,6 +22,7 @@
  */
 #define _GNU_SOURCE
 
+#include "cmime_windows.h"
 #include "cmime_qp.h"
 
 /* Quoted-Printable decoding Mode */
